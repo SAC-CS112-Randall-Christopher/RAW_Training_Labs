@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "raw-training-labs"
+version = "0.1.0"
+description = "Private local training and evaluation workbench for reviewed customer tasks"
+requires-python = ">=3.12"
+dependencies = [
+  "torch>=2.9,<2.15", "transformers==5.18.0", "peft==0.21.2",
+  "accelerate==1.15.0", "pydantic==2.13.4", "tzdata==2026.2", "psutil==7.2.2",
+  "fastapi>=0.115,<1", "uvicorn>=0.30,<1", "httpx==0.28.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.4.2", "ruff==0.16.9"]
+quantization = ["bitsandbytes==0.50.2"]
+
+[project.scripts]
+raw-labs = "raw_training_labs.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+raw_training_labs = ["web/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
