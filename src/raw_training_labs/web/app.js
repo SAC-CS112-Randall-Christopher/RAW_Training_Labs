@@ -34,10 +34,15 @@ async function api(path, payload) {
         : { "Content-Type": "application/json", "X-RAW-CSRF": token },
     body: payload === undefined ? undefined : JSON.stringify(payload),
   });
+  if (!response.headers.get("content-type")?.includes("application/json"))
+    throw new Error(
+      `The local workbench returned an unexpected response (${response.status}). Refresh and inspect the recorded job.`,
+    );
   const result = await response.json();
   if (!response.ok)
     throw new Error(
-      result.error || JSON.stringify(result.detail) || "Request failed",
+      (result.error || JSON.stringify(result.detail) || "Request failed") +
+        (result.next_action ? ` ${result.next_action}` : ""),
     );
   return result;
 }
@@ -550,7 +555,11 @@ bind("#project", "change", async (e) => {
   state = null;
   await load();
 });
-bind("#refresh", "click", load);
+bind("#refresh", "click", async () => {
+  const owner = selected;
+  await load();
+  if (owner === selected) show("Project records refreshed.");
+});
 document.querySelectorAll("nav button").forEach(
   (b) =>
     (b.onclick = async () => {

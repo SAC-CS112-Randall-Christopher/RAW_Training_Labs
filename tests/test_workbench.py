@@ -524,3 +524,34 @@ def test_watchdog_records_sql_failure_reason_when_progress_publication_fails(
     retained = workbench.store.job(project_id, job_id)
     assert retained["status"] == "failed"
     assert retained["reason"] == "Resource inspection unavailable"
+
+
+def test_unavailable_job_receipt_returns_explicit_service_failure(workbench, monkeypatch):
+    project_id = create(workbench)["project"]["id"]
+    job_id = new_id()
+    with workbench.store.transaction() as db:
+        db.execute(
+            "INSERT INTO jobs(id,project,kind,status,request,key,created) VALUES(?,?,?,?,?,?,?)",
+            (job_id, project_id, "baseline", "completed", "{}", "receipt-read-check", time.time()),
+        )
+    summary = Service.summary
+    calls = []
+
+    def unavailable(self, project_id):
+        calls.append(project_id)
+        if len(calls) == 1:
+            raise PermissionError("Job progress temporarily unreadable")
+        return summary(self, project_id)
+
+    monkeypatch.setattr(Service, "summary", unavailable)
+    with TestClient(application(workbench.store.root), base_url="http://127.0.0.1:8765") as client:
+        client.get("/api/session")
+        result = client.get(f"/api/projects/{project_id}")
+        recovered = client.get(f"/api/projects/{project_id}")
+    assert result.status_code == 503
+    assert "Job progress temporarily unreadable" in result.json()["error"]
+    assert "recorded job" in result.json()["next_action"]
+    assert recovered.status_code == 200
+    assert recovered.json()["jobs"][0]["id"] == job_id
+    assert recovered.json()["jobs"][0]["status"] == "completed"
+    assert workbench.store.job(project_id, job_id)["status"] == "completed"

@@ -27,6 +27,17 @@ def application(root, port=8765):
     def invalid_payload(request, exc):
         return JSONResponse({"error": str(exc)}, status_code=422)
 
+    @app.exception_handler(OSError)
+    def unavailable_files(request, exc):
+        return JSONResponse(
+            {
+                "error": f"Local file access failed: {exc}",
+                "next_action": "Refresh and inspect the recorded job before "
+                "retrying a job request.",
+            },
+            status_code=503,
+        )
+
     @app.middleware("http")
     async def local_only(request: Request, call_next):
         if request.headers.get("host") not in hosts:
