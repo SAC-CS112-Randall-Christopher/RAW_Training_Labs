@@ -30,7 +30,7 @@ Open http://127.0.0.1:8765/. Startup creates/opens only the owned RAW private st
 
 Only one heavy RAW job can be admitted across all projects. Closing the browser or terminating only the web server does not own the worker's lifetime. Abruptly stopping a whole process tree or the machine may interrupt a worker; reconciliation never invents success or a safe checkpoint.
 
-See [the operator runbook](docs/operator-runbook.md), [the approved project boundaries](PROJECT.md), [source-only import provenance](docs/source-import.json) and [the open-source investigation](docs/open-source-review.md). Measured acceptance is recorded separately from software checks.
+See [the operator runbook](docs/operator-runbook.md), [the approved project boundaries](PROJECT.md), [source-only import provenance](docs/source-import.json), [the open-source investigation](docs/open-source-review.md) and [the measured local acceptance record](docs/acceptance-record.md). Measured acceptance is recorded separately from software checks.
 
 ## Matching CLI
 
