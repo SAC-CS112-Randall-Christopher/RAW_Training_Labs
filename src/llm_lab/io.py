@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -79,6 +80,22 @@ def write_new(path: Path, value: Any) -> None:
 
 def write_state(path: Path, value: Any) -> None:
     # Only an owned mutable receipt; frozen corpus/model manifests use write_new.
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(canonical(value) + "\n", encoding="utf-8")
-    temporary.replace(path)
+    with tempfile.NamedTemporaryFile(
+        mode="w",
+        encoding="utf-8",
+        prefix=path.name + ".",
+        suffix=".tmp",
+        dir=path.parent,
+        delete=False,
+    ) as stream:
+        temporary = Path(stream.name)
+        try:
+            stream.write(canonical(value) + "\n")
+        except BaseException:
+            stream.close()
+            temporary.unlink(missing_ok=True)
+            raise
+    try:
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)

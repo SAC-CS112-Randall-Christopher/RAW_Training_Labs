@@ -109,6 +109,7 @@ def train(
     *,
     resume: Path | None = None,
     yield_file: Path | None = None,
+    yield_after_step: int | None = None,
 ) -> dict:
     import torch
 
@@ -185,7 +186,7 @@ def train(
             encoded["validation"],
             tokenizer,
             recipe,
-            stop=pause if recipe.device == "cuda" else None,
+            stop=pause,
         )
         model, adapter_info = attach_adapter(model, recipe)
         receipt.update(adapter_info)
@@ -268,6 +269,11 @@ def train(
             record_validation(receipt["history"][-1])
         values = encoded["train"]
         while step < recipe.steps:
+            if yield_after_step is not None and step >= yield_after_step:
+                receipt.update(
+                    status="yielded", reason="Explicit successful-step checkpoint requested"
+                )
+                break
             reason = training_gate(recipe, started, yield_file)
             if reason:
                 receipt.update(status="yielded", reason=reason)

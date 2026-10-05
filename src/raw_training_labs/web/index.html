@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RAW Training Labs</title><link rel="stylesheet" href="/assets/app.css"><script src="/assets/app.js" defer></script></head>
+<body><aside><a class="brand" href="/">RAW<span>TRAINING LABS</span></a><div class="local">LOCAL WORKBENCH</div>
+<label for="project">Project</label><select id="project"><option value="">Choose a project</option></select>
+<nav aria-label="Workbench"><button data-page="projects" class="selected">Projects</button><button data-page="data">Data &amp; examples</button>
+<button data-page="training">Training</button><button data-page="compare">Compare &amp; test</button><button data-page="delivery">Delivery</button><button data-page="models">Model coverage</button></nav>
+<p class="aside-note">Define the task.<br>Measure the baseline.<br>Train when it helps.</p><small>Randall Automation Works</small></aside>
+<main><header><div><p class="eyebrow">OPERATOR WORKSPACE</p><h1 id="page-title">Projects</h1></div><button id="refresh" class="secondary">Refresh</button></header>
+<div id="message" role="status" hidden></div><section id="content" aria-live="polite"></section></main>
+<dialog id="review-dialog"><form id="review-form"><h2>Review example</h2><p id="review-id"></p><label>Reviewer<input name="reviewer" required placeholder="Your name"></label>
+<label>Reviewer type<select name="reviewer_kind"><option value="human">Human operator</option><option value="delegated_semantic">Delegated synthetic review</option></select></label><label class="check"><input type="checkbox" name="reviewer_authored_material">Reviewer authored this material</label>
+<label>Teaching target<textarea name="completion" rows="7" required></textarea></label><label>Review reason<textarea name="reason" required minlength="10" rows="2"></textarea></label>
+<div id="rights-controls"></div><label class="check"><input name="approved" type="checkbox">Approve this revision</label><div class="actions"><button type="submit">Save review</button><button type="button" id="close-review" class="secondary">Close</button></div></form></dialog>
+</body></html>

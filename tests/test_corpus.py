@@ -2,7 +2,6 @@ import copy
 
 import pytest
 from conftest import reseal_export
-
 from llm_lab.corpus import import_qtrades, verify_corpus, write_corpus
 from llm_lab.fixtures import fixture_files
 from llm_lab.io import canonical, read_object, read_rows, write_state

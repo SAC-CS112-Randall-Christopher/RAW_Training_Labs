@@ -2,11 +2,10 @@ from datetime import datetime
 from types import SimpleNamespace
 
 import pytest
-from pydantic import ValidationError
-
 from llm_lab.config import Recipe
 from llm_lab.io import new_directory, read_rows, write_new
 from llm_lab.resources import ZONE, gpu_gate, schedule
+from pydantic import ValidationError
 
 
 @pytest.mark.parametrize(

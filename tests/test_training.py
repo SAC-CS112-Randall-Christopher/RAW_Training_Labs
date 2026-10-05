@@ -1,7 +1,6 @@
 import copy
 
 import pytest
-
 from llm_lab.corpus import verify_corpus, write_corpus
 from llm_lab.evaluation import diagnose, evaluate, summarize
 from llm_lab.io import canonical, digest, read_object, sha_file
@@ -50,7 +49,6 @@ def test_transformers_batchencoding_normalization():
 
 def test_optimizer_updates_only_adapters_and_retains_base_parameters(hybrid):
     import torch
-
     from llm_lab.training import loss_on
 
     root, recipe = hybrid
@@ -227,9 +225,8 @@ def test_pair_receipts_prove_same_prompt_and_explicit_stop_budget(hybrid, tmp_pa
 
 def test_resume_refuses_changed_checkpoint(hybrid, tmp_path):
     root, recipe = hybrid
-    signal = tmp_path / "yield-now"
-    signal.touch()
-    train(root / "base", root / "corpus", recipe, tmp_path / "paused", yield_file=signal)
+    paused = train(root / "base", root / "corpus", recipe, tmp_path / "paused", yield_after_step=1)
+    assert paused["status"] == "yielded" and paused["step"] == 1
     with (tmp_path / "paused" / "optimizer.pt").open("ab") as stream:
         stream.write(b"tampered")
     with pytest.raises(ValueError, match="checkpoint changed"):
@@ -247,7 +244,9 @@ def test_frozen_reference_adds_one_arm_with_identical_inputs_and_no_extra_attemp
     reference = train(root / "base", root / "corpus", recipe, tmp_path / "reference")
     train(root / "base", root / "corpus", recipe, tmp_path / "run")
     result = evaluate(
-        tmp_path / "run", tmp_path / "three-arms", reference_run=tmp_path / "reference",
+        tmp_path / "run",
+        tmp_path / "three-arms",
+        reference_run=tmp_path / "reference",
         max_new_tokens=4,
     )
     rows = [
@@ -380,7 +379,6 @@ def test_mechanical_critique_counts_unsafe_approval_missing_evidence_and_false_r
 
 def test_amp_overflow_skips_weight_update_and_retains_bounded_retry_receipt():
     import torch
-
     from llm_lab.config import Recipe
     from llm_lab.training import clip_or_backoff
 
@@ -405,7 +403,6 @@ def test_amp_overflow_skips_weight_update_and_retains_bounded_retry_receipt():
 
 def test_nonfinite_unscaled_gradients_are_fatal():
     import torch
-
     from llm_lab.config import Recipe
     from llm_lab.training import clip_or_backoff
 
