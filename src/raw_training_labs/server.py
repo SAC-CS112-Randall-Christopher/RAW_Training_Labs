@@ -173,14 +173,6 @@ def application(root, port=8765):
         jobs.reconcile(service.store)
         return jobs.detail(service.store, project_id, job_id)
 
-    @app.post("/api/projects/{project_id}/jobs/{job_id}/{action}")
-    def control(project_id: str, job_id: str, action: str, payload: dict):
-        if payload != {"request": True} or action not in {"cancel", "yield"}:
-            raise ValueError("Unsupported recovery action")
-        return (jobs.cancel if action == "cancel" else jobs.yield_job)(
-            service.store, project_id, job_id
-        )
-
     @app.get("/api/projects/{project_id}/jobs/{job_id}/log")
     def log(project_id: str, job_id: str):
         service.store.job(project_id, job_id)
@@ -199,5 +191,14 @@ def application(root, port=8765):
     @app.post("/api/projects/{project_id}/jobs/{job_id}/assessments")
     def assessment(project_id: str, job_id: str, payload: dict):
         return service.assess(project_id, job_id, payload)
+
+    # Fixed job subpaths must precede this variable action route.
+    @app.post("/api/projects/{project_id}/jobs/{job_id}/{action}")
+    def control(project_id: str, job_id: str, action: str, payload: dict):
+        if payload != {"request": True} or action not in {"cancel", "yield"}:
+            raise ValueError("Unsupported recovery action")
+        return (jobs.cancel if action == "cancel" else jobs.yield_job)(
+            service.store, project_id, job_id
+        )
 
     return app

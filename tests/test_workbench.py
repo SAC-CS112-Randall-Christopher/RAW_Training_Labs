@@ -555,3 +555,63 @@ def test_unavailable_job_receipt_returns_explicit_service_failure(workbench, mon
     assert recovered.json()["jobs"][0]["id"] == job_id
     assert recovered.json()["jobs"][0]["status"] == "completed"
     assert workbench.store.job(project_id, job_id)["status"] == "completed"
+
+
+def test_case_review_http_route_persists_and_cli_reads_same_record(workbench, capsys):
+    project_id = create(workbench)["project"]["id"]
+    other_id = create(workbench)["project"]["id"]
+    job_id = new_id()
+    directory = workbench.store.artifact_path(project_id, f"jobs/{job_id}")
+    directory.mkdir(parents=True)
+    write_new(directory / "result.json", {"comparison": {"pairs": [{"id": "case-a"}]}})
+    with workbench.store.transaction() as db:
+        db.execute(
+            "INSERT INTO jobs(id,project,kind,status,request,key,created) VALUES(?,?,?,?,?,?,?)",
+            (job_id, project_id, "compare", "completed", "{}", "http-case-review", time.time()),
+        )
+    payload = {
+        "case_id": "case-a",
+        "reviewer": "Explicit test reviewer",
+        "assessment": "uncertain",
+        "reason": "The formatting improved but the missing fact is still invented.",
+    }
+    with TestClient(application(workbench.store.root), base_url="http://127.0.0.1:8765") as client:
+        token = client.get("/api/session").json()["token"]
+        headers = {"Origin": "http://127.0.0.1:8765", "X-RAW-CSRF": token}
+        path = f"/api/projects/{project_id}/jobs/{job_id}/assessments"
+        saved = client.post(path, json=payload, headers=headers)
+        assert saved.status_code == 200, saved.text
+        assert saved.json() == payload
+        assert client.get(path).json() == [payload]
+        wrong_project = client.post(
+            f"/api/projects/{other_id}/jobs/{job_id}/assessments", json=payload, headers=headers
+        )
+        assert wrong_project.status_code == 400
+        assert (
+            client.post(path, json={**payload, "case_id": "absent"}, headers=headers).status_code
+            == 400
+        )
+        assert (
+            client.post(
+                f"/api/projects/{project_id}/jobs/{job_id}/unsupported",
+                json={"request": True},
+                headers=headers,
+            ).status_code
+            == 400
+        )
+        assert client.get(path).json() == [payload]
+    assert (
+        main(
+            [
+                "--root",
+                str(workbench.store.root),
+                "assessments",
+                "--project",
+                project_id,
+                "--job",
+                job_id,
+            ]
+        )
+        == 0
+    )
+    assert json.loads(capsys.readouterr().out) == [payload]
