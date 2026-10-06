@@ -1,0 +1,20 @@
+{
+  "name": "crypto-instructional-qwen35-4b-bounded-capacity",
+  "model_kind": "qwen3_5_text",
+  "device": "cuda",
+  "precision": "float16",
+  "quantization": "nf4",
+  "rank": 16,
+  "alpha": 32,
+  "targets": ["all-linear"],
+  "max_length": 2048,
+  "micro_batch": 1,
+  "accumulation": 1,
+  "steps": 6,
+  "warmup_steps": 1,
+  "eval_every": 2,
+  "learning_rate": 0.00005,
+  "max_run_seconds": 3600,
+  "cpu_threads": 2,
+  "minimum_free_gpu_mib": 1536
+}

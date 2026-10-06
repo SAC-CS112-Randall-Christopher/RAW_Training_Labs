@@ -1,0 +1,18 @@
+{
+  "name": "qtrades-qwen35-qlora16-8gb-feasibility-trial",
+  "model_kind": "qwen3_5_text",
+  "device": "cuda",
+  "precision": "float16",
+  "quantization": "nf4",
+  "rank": 16,
+  "alpha": 32,
+  "rank_stabilized": false,
+  "targets": ["all-linear"],
+  "max_length": 512,
+  "micro_batch": 1,
+  "accumulation": 4,
+  "steps": 100,
+  "eval_every": 10,
+  "max_run_seconds": 3600,
+  "minimum_free_gpu_mib": 1536
+}

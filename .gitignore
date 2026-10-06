@@ -1,0 +1,15 @@
+.venv*/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.egg-info/
+.worktrees/
+*.safetensors
+*.pt
+*.bin
+data/
+artifacts/
+runs/
+models/
+.env*
+*.sqlite*

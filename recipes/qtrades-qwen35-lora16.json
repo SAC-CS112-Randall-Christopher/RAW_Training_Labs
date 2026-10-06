@@ -1,0 +1,15 @@
+{
+  "name": "qtrades-qwen35-lora16-trial",
+  "model_kind": "qwen3_5_text",
+  "device": "cuda",
+  "precision": "float16",
+  "quantization": "none",
+  "rank": 16,
+  "alpha": 32,
+  "rank_stabilized": false,
+  "targets": ["all-linear"],
+  "max_length": 2048,
+  "steps": 100,
+  "eval_every": 10,
+  "max_run_seconds": 3600
+}

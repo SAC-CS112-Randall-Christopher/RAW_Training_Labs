@@ -1,0 +1,129 @@
+{
+  "format": "raw-source-import-v1",
+  "original_commit": "7f55e77c7bd67a2d2eae9164b6ce7f57aa6dd8d5",
+  "original_branch": "codex/research-grounded-training-lab",
+  "method": "allowlisted committed source snapshot, no Git history or original environments/data",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c"
+    },
+    {
+      "path": "locks/windows-cpu.txt",
+      "sha256": "0d2989754478fa1ea583c26b354efb01faa6f45fd6ae901a8fdfec1557b5e632"
+    },
+    {
+      "path": "locks/windows-cuda128.txt",
+      "sha256": "a398ba5041c04f425ad28b2cefe05c02790ae9c62af54f93a1d407842d9a8090"
+    },
+    {
+      "path": "recipes/crypto-qwen35-4b-capacity.json",
+      "sha256": "c3afd1a8878277b687333978fd463f07b7934e825afc0fe1eb118e802463c509"
+    },
+    {
+      "path": "recipes/qtrades-qwen35-lora16.json",
+      "sha256": "448a32b5216c32468013668506a523fd6fc103f6a96a1cd06f8bbedaa6660c2f"
+    },
+    {
+      "path": "recipes/qtrades-qwen35-qlora16-8gb.json",
+      "sha256": "d541abd7b1c2c9694b90167f01ee25b2c3b0aef8e20827d7c0797d9bda6478a0"
+    },
+    {
+      "path": "recipes/qtrades-qwen35-rslora32.json",
+      "sha256": "e5d8149f556e6ae93e28b1dad5640650dd1dba6b1aa5a8fac325ea5ba34d1c44"
+    },
+    {
+      "path": "src/llm_lab/__init__.py",
+      "sha256": "b2c213c9c1e7a7b4efce9dcd398872f5aa14933f4c3ea0924aee11b030ec0923"
+    },
+    {
+      "path": "src/llm_lab/comparison_receipt.py",
+      "sha256": "e521a01ddbf492914b4d88116b3d8793367b51fefbaeb8bb77dad9cdd8afeac8"
+    },
+    {
+      "path": "src/llm_lab/config.py",
+      "sha256": "20c39f9f8e087b109c5751095d9526a06cd9de3cec5770df19f8bb670a4805ec"
+    },
+    {
+      "path": "src/llm_lab/corpus.py",
+      "sha256": "d48c7f127b276ad5aeaf7e71a61b5852916b7d7d6a79ec408fca5f368350f9f7"
+    },
+    {
+      "path": "src/llm_lab/evaluation.py",
+      "sha256": "5b2f38f07b677d1d16b59fc51d48f7b7b8e24cc6dacd4b0582905f34549fc848"
+    },
+    {
+      "path": "src/llm_lab/exposure.py",
+      "sha256": "4e86fddf4a26dcbcff41e1887ee1f427d1c3e59129c62fea61378eee83c6cd28"
+    },
+    {
+      "path": "src/llm_lab/fixtures.py",
+      "sha256": "8f7346cfdc5a06bbea39733f9ec55ff09323ffbef5ef6bdef83ecd5f5bfa1cf4"
+    },
+    {
+      "path": "src/llm_lab/handoff.py",
+      "sha256": "a3c4e65b0b654293c15fdc800e1f1badea673818d5041690949af7047ea9a4b7"
+    },
+    {
+      "path": "src/llm_lab/io.py",
+      "sha256": "0cd29429a280d2a9d211d4d47f2c0254d7fa3c52d6f238ffd886b376c2d9fc6d"
+    },
+    {
+      "path": "src/llm_lab/masking.py",
+      "sha256": "5d2e6daac407cd4349188edfa839e228defd30471f7dad01dbf46b5e1554621a"
+    },
+    {
+      "path": "src/llm_lab/model.py",
+      "sha256": "ee1f2a54db5e9fed7a8e7054b05a100c72806de92c38d30285a8fae065076298"
+    },
+    {
+      "path": "src/llm_lab/report.py",
+      "sha256": "34feae3f1801d5a3b058b88a5334eb1a6df3102b589f3555bdf466238e7b1cff"
+    },
+    {
+      "path": "src/llm_lab/resources.py",
+      "sha256": "d7a32d6b8f2be3348544efb4b82cfddac562781fe9ac52520fa250bdd323829e"
+    },
+    {
+      "path": "src/llm_lab/training.py",
+      "sha256": "a9388e2ed731de134e5d484e2ddcf772cfd13fc47ba156f14d9853716e6542cb"
+    },
+    {
+      "path": "tests/conftest.py",
+      "sha256": "2ef815ca02c51dc838a6148659cb5211046c8d483a592ada934dcea929ae35ac"
+    },
+    {
+      "path": "tests/test_application_handoff.py",
+      "sha256": "bfbb4663dd44f98d79573269a8acc955d096863fe4fa0772dbc71481209d848e"
+    },
+    {
+      "path": "tests/test_boundaries.py",
+      "sha256": "d3cca200867cd41c4a9609ffffde73cf2f4ce091a1f685e50ef1829550650102"
+    },
+    {
+      "path": "tests/test_corpus.py",
+      "sha256": "46e36f5eefde67c14704246278190bbd3025f2684cdcdce0cef030d60ddf9223"
+    },
+    {
+      "path": "tests/test_report.py",
+      "sha256": "63d2605f1538f5a4dd50a936c6f0d5f262e85d283b45c8f97c390ffb73ab0bd6"
+    },
+    {
+      "path": "tests/test_training.py",
+      "sha256": "d6c5d7d7000f7c44c00e78dbb256b3e0a4ae539d2586095450f5755b0dba4b99"
+    }
+  ],
+  "exclusions": [
+    "original Git history",
+    "operating configuration",
+    "data and model artifacts",
+    "original environments",
+    "trading CLI and market-history code",
+    "trading-specific inspection and CP24 scripts",
+    "historical study documents"
+  ],
+  "original_dirty": [
+    "AGENTS.md modified",
+    "PROJECT.md untracked"
+  ]
+}
