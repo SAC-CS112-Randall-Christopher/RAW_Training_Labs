@@ -31,7 +31,7 @@ Second-model reasoning coverage targets the inherited Qwen3.5-4B text path at 85
 
 ## Source and publication
 
-Foundation: allowlisted committed source at 7f55e77c7bd67a2d2eae9164b6ce7f57aa6dd8d5 from the original private Lab. See docs/source-import.json. Source-only import excludes original Git history, environments, operating configuration, weights, data, studies and trading launchers. No source license was found; retain ownership/provenance and upstream license notices. RAW source remains private; no publication until owner/repository is confirmed.
+Foundation: allowlisted committed source at 7f55e77c7bd67a2d2eae9164b6ce7f57aa6dd8d5 from the original private Lab. See docs/source-import.json. Source-only import excludes original Git history, environments, operating configuration, weights, data, studies and trading launchers. No source license was found; retain ownership/provenance and upstream license notices. On 2026-10-06, the owner explicitly authorized a public source copy in SAC-CS112-Randall-Christopher/RAW_Training_Labs, superseding the earlier private-source requirement. Publish source and documentation only. Customer data, operating configuration, environments, weights, checkpoints, receipts and generated artifacts remain private and outside Git. Public visibility does not add a permissive RAW source license.
 
 ## Checks and completion
 

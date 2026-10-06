@@ -1,6 +1,6 @@
 # RAW Training Labs
 
-Read PROJECT.md. This is an independent private operator workbench, not Q-Trades or its original Lab.
+Read PROJECT.md. This is an independent local operator workbench, not Q-Trades or its original Lab.
 
 - Preserve original projects, private observations, holdouts, models and integration unchanged.
 - GUI and CLI call the same project-isolated services and durable job records. Never infer a project.
@@ -12,5 +12,5 @@ Read PROJECT.md. This is an independent private operator workbench, not Q-Trades
 - Keep operational data and all weights/artifacts outside every source checkout. No original environment reuse.
 - Approved: local implementation, isolated software checks and the bounded synthetic Qwen3-0.6B CPU demonstration in PROJECT.md.
 - Tev tev1:4b is requested for System 1; assess exact source/format first. Do not claim trainability from an inference artifact.
-- No remote publication until the user supplies the private owner/repository; no customer data, paid compute, deployments or other-owner process changes.
+- The owner authorized public source publication to SAC-CS112-Randall-Christopher/RAW_Training_Labs on 2026-10-06. Publish source and documentation only; keep customer data, operating configuration, environments, weights and generated artifacts private and outside Git. No paid compute, deployments or other-owner process changes.
 - Substantial changes require independent Codex review, repairs, meaningful tests and real GUI acceptance.
